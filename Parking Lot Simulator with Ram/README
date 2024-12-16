@@ -1,0 +1,3 @@
+
+"This folder contains the files used to simulate the parking lot. First, take a look at the ParkingLotSimulator.pdf file which explains how the simulator works
+and explains what each file does, it also includes screenshots which show the simulation results. Each file ending in .sv is a System Verilog file."
