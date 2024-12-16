@@ -4,8 +4,6 @@
  * 3/5/2024
  * EE 371
  * Lab 6
- 
- CHANGE THIS!
 
  * Uses the DE1_SoC FPGA board's GPIO inputs to monitor the status of a parking lot
  * Keeps a running count of the cars inside and alerts when it is empty or full
@@ -23,7 +21,7 @@
  * 	GPIO_0[23] - Switch 0 that is Sensor B for cars
  * Outputs:
  * 	GPIO_0[26] - LED 1 alerts if an object has been detected in Sensor A
- * 	GPIO_0[27] - LED 0 lerts if an object has been detected in Sensor A
+ * 	GPIO_0[27] - LED 0 alerts if an object has been detected in Sensor A
  * 	HEX5 to HEX0 - Displays the full/empty status of the lot and the number of cars inside
  */
  
@@ -33,7 +31,7 @@ module DE1_SoC(CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, SW, LEDR, V_GP
 	// Variable declaration
 		input logic CLOCK_50; // 50MHz clock
 		output logic [6:0] HEX0, HEX1, HEX2, HEX3, HEX4, HEX5;
-		inout logic [35:23] V_GPIO;
+		input logic [35:23] V_GPIO;
 		output logic [9:0] LEDR;
 		input logic [3:0] KEY; // Active low property
 		input logic [9:0] SW;
@@ -66,7 +64,7 @@ module DE1_SoC(CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, SW, LEDR, V_GP
 		logic start_rush, end_rush, no_rush;
 		controller ctrl (.clock, .reset, .count, .hour, .start_rush, .end_rush, .no_rush);
 		
-	// Synchronize hour incrementer button and get single pulse
+	// Synchronize the hour incrementer button and get a single pulse
 		logic hour_inc_t, hour_inc;
 		signal_sync key0 (.clock, .reset, .unsync_in(~KEY[0]), .sync_out(hour_inc_t));
 		pulse_edge inc (.clock, .in(hour_inc_t), .out(hour_inc));
@@ -102,7 +100,7 @@ module DE1_SoC_tb();
 		wire [35:0] V_GPIO;
 		logic [4:0] sw;
 	
-	// Instanciates a DE1_SoC object with the combinations below
+	// Instantiates a DE1_SoC object with the combinations below
 		DE1_SoC dut (.CLOCK_50, .HEX0, .HEX1, .HEX2, .HEX3, .HEX4, .HEX5, .V_GPIO);
 		
 	// Assign external switches to assigned inputs
@@ -125,15 +123,15 @@ module DE1_SoC_tb();
 	// Combinations of user input
 		initial begin
 			sw[4] <= 0; sw[3] <= 0; sw[2] <= 0;		@(posedge CLOCK_50);
-			sw[1] <= 0; sw[0] <= 0;						@(posedge CLOCK_50);
-			sw[3] <= 1;		repeat(2)					@(posedge CLOCK_50);
-			sw[3] <= 0;										@(posedge CLOCK_50);
-			sw[0] <= 1;		repeat(2)					@(posedge CLOCK_50);
-			sw[1] <= 1; 	repeat(2)					@(posedge CLOCK_50);
-			sw[2] <= 1;    repeat(2)					@(posedge CLOCK_50);
-			sw[4] <= 1;		repeat(2)					@(posedge CLOCK_50);
-																@(posedge CLOCK_50);
-																@(posedge CLOCK_50);
+			sw[1] <= 0; sw[0] <= 0;				@(posedge CLOCK_50);
+			sw[3] <= 1;		repeat(2)		@(posedge CLOCK_50);
+			sw[3] <= 0;					@(posedge CLOCK_50);
+			sw[0] <= 1;		repeat(2)		@(posedge CLOCK_50);
+			sw[1] <= 1; 	repeat(2)			@(posedge CLOCK_50);
+			sw[2] <= 1;    repeat(2)			@(posedge CLOCK_50);
+			sw[4] <= 1;		repeat(2)		@(posedge CLOCK_50);
+									@(posedge CLOCK_50);
+									@(posedge CLOCK_50);
 							
 							
 			$stop; // End simulation	
