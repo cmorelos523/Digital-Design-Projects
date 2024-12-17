@@ -11,6 +11,7 @@
  *		in - 1-bit, the input signal
  * Output ports:
  *		out - 1-bit, the output pulse signal
+ */
  
 module pulse_edge (clock, in, out);
 
@@ -18,7 +19,7 @@ module pulse_edge (clock, in, out);
 		input logic clock, in;
 		output logic out;
 		
-	// State declaration for finding edge of pulse
+	// State declaration for finding the edge of the pulse
 		enum {S0, S1} ps, ns; // Present state, next state
 		
 	// Classify input signal based on pulse length
@@ -47,7 +48,7 @@ endmodule // pulse_edge
 
 
 
-/* Tests the pulse_edge module with various combinations of inputs 
+/* Tests the pulse_edge module with various combinations of inputs */
 module pulse_edge_tb();
 
 	// Variable declaration
@@ -77,4 +78,3 @@ module pulse_edge_tb();
 		end // initial
 		
 endmodule // pulse_edge_tb
-*/
