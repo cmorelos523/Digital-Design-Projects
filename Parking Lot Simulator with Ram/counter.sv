@@ -13,6 +13,7 @@
  * 	dec - 1-bit, decreases the value of the count
  * Output ports:
  * 	count - the running count based on the input
+ */
  
 module counter (clock, reset, inc, dec, count);
 
@@ -40,6 +41,7 @@ endmodule
 
 /*
  * Tests the counter module with various combinations of input
+ */
 
 module counter_testbench();
 
@@ -61,24 +63,23 @@ module counter_testbench();
 	
 	// Combinations of input values
 		initial begin
-			reset <= 1;									@(posedge clock);
+			reset <= 1;				@(posedge clock);
 			reset <= 0; inc <= 1; dec <= 0;		@(posedge clock); // Increases
-															@(posedge clock);
-															@(posedge clock);
-															@(posedge clock);
-															@(posedge clock);
-							inc <= 0; dec <= 1;		@(posedge clock); // Decreases
-															@(posedge clock);
-															@(posedge clock);
-															@(posedge clock);
-															@(posedge clock);
-							inc <= 1; dec <= 0;		@(posedge clock); // Increases
-															@(posedge clock);
-			reset <= 1;									@(posedge clock); // Reset
+								@(posedge clock);
+								@(posedge clock);
+								@(posedge clock);
+								@(posedge clock);
+				inc <= 0; dec <= 1;		@(posedge clock); // Decreases
+								@(posedge clock);
+								@(posedge clock);
+								@(posedge clock);
+								@(posedge clock);
+				inc <= 1; dec <= 0;		@(posedge clock); // Increases
+								@(posedge clock);
+			reset <= 1;				@(posedge clock); // Reset
 			reset <= 0; inc <= 1; dec <= 0;		@(posedge clock);
-															@(posedge clock);
+								@(posedge clock);
 															
-							
 			$stop; // End simulation
 		end // initial
 		
