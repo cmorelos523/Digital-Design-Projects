@@ -28,6 +28,7 @@
  *		HEX2 - 7 bits, shows 'FULL' if parking lot is full, otherwise off
  *		HEX1 - 7 bits, shows 'FULL' if parking lot is full, otherwise off
  *		HEX0 - 7 bits, shows the number of empty lots, and shows 'FULL' if parking lot is full, otherwise off
+ */
  
 module datapath (clock, reset, hour_inc, start_rush, end_rush, no_rush, enter, exit, count, hour, HEX5, HEX4, HEX3, HEX2, HEX1, HEX0);
 
@@ -38,7 +39,7 @@ module datapath (clock, reset, hour_inc, start_rush, end_rush, no_rush, enter, e
 		output logic [3:0] count, hour;
 		output logic [6:0] HEX5, HEX4, HEX3, HEX2, HEX1, HEX0;
 		
-	// Determine value to show on HEX displays based on workday status
+	// Determine the value to show on HEX displays based on workday status
 		logic [3:0] HEX5_v, HEX4_v, HEX3_v, HEX2_v, HEX1_v, HEX0_v;
 		logic [3:0] start_time, end_time;
 		always_ff @(posedge clock) begin
