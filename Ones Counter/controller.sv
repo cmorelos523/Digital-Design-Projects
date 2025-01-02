@@ -4,7 +4,7 @@
 // Lab 4
 // This program controls the signals for the datapath
 
-// This module sends the necessary signals to the data path according the the inputs from the DE1 SoC board
+// This module sends the necessary signals to the data path according to the inputs from the DE1 SoC board
 // Input ports:
 //		* clock: the rate at which inputs are processed
 //		* reset_ctrl: to return the controller to its initial or idle state
@@ -14,7 +14,7 @@
 // Output ports:
 //		* done_ctrl: true when the system is done, connected to LED9
 //		* load_A: signals the data path to load input switches to a local register 
-//		* shift: signals the data path to shift the register to the right one time
+//		* shift: signals the data path to shift the register to the right one-time
 //		* count: transforms the 4bit result to its equivalent number for the HEX0 display
 module controller (clock, reset_ctrl, start_ctrl, done_datapath, result, done_ctrl, load_A, shift, count);
 
@@ -85,10 +85,10 @@ module controller (clock, reset_ctrl, start_ctrl, done_datapath, result, done_ct
 		endcase
 	end
 	
-	// Output assingment
-	assign shift = (((ps == S_idle) && start_ctrl) || ((ps == S_shifting) && ~done_datapath)); // shifting signal
-	assign load_A = ((ps == S_idle) && ~start_ctrl);														 // loading from switches
-	assign done_ctrl = (((ps == S_shifting) && done_datapath) || (ps == S_done));					 // done signal
+	// Output assignment
+	assign shift = (((ps == S_idle) && start_ctrl) || ((ps == S_shifting) && ~done_datapath)); 	// shifting signal
+	assign load_A = ((ps == S_idle) && ~start_ctrl);						// loading from switches
+	assign done_ctrl = (((ps == S_shifting) && done_datapath) || (ps == S_done)); 		        // done signal
 	
 endmodule
 
@@ -121,17 +121,17 @@ module controller_tb();
 		reset_ctrl = 0;						@(posedge clock);
 		start_ctrl = 0;						@(posedge clock); // not starting (S_idle) -> load A
 		start_ctrl = 1;						@(posedge clock); // starting (S_shifting) -> shift
-		done_datapath = 0; repeat(10)		@(posedge clock); // not done for 10 cycles (S_shifting) -> shift is true
-		done_datapath = 1; repeat(5)     @(posedge clock); // done, no more shifting(S_done) -> done_ctrl is true
-		result = 4'b0000;						@(posedge clock); // result = 0, count = 0
-		result = 4'b0001;						@(posedge clock); // result = 1, count = 1
-		result = 4'b0010;						@(posedge clock); // result = 2, count = 2
-		result = 4'b0011;						@(posedge clock); // result = 3, count = 3
-		result = 4'b0100;						@(posedge clock); // result = 4, count = 4
-		result = 4'b0101;						@(posedge clock); // result = 5, count = 5
-		result = 4'b0110;						@(posedge clock); // result = 6, count = 6
-		result = 4'b0111;						@(posedge clock); // result = 7, count = 7
-		result = 4'b1000;						@(posedge clock); // result = 8, count = 8
+		done_datapath = 0; repeat(10)				@(posedge clock); // not done for 10 cycles (S_shifting) -> shift is true
+		done_datapath = 1; repeat(5)     			@(posedge clock); // done, no more shifting(S_done) -> done_ctrl is true
+		result = 4'b0000;					@(posedge clock); // result = 0, count = 0
+		result = 4'b0001;					@(posedge clock); // result = 1, count = 1
+		result = 4'b0010;					@(posedge clock); // result = 2, count = 2
+		result = 4'b0011;					@(posedge clock); // result = 3, count = 3
+		result = 4'b0100;					@(posedge clock); // result = 4, count = 4
+		result = 4'b0101;					@(posedge clock); // result = 5, count = 5
+		result = 4'b0110;					@(posedge clock); // result = 6, count = 6
+		result = 4'b0111;					@(posedge clock); // result = 7, count = 7
+		result = 4'b1000;					@(posedge clock); // result = 8, count = 8
 		start_ctrl = 0;						@(posedge clock); // back to S_idle
 		
 		$stop; // end simulation
