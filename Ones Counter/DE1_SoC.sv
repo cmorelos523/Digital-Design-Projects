@@ -43,7 +43,7 @@ module DE1_SoC (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW);
 	assign HEX4 = '1;
 	assign HEX5 = '1;
 	
-	// Instantiation of controller and ones_counter modules
+	// Instantiation of the controller and ones_counter modules
 	logic done_overall; // done connection for both modules
 	logic [3:0] result_overall; // stores the counter
 	logic load_overall; // load connection for both modules
@@ -85,9 +85,9 @@ module DE1_SoC_tb();
 		KEY[0] = 1;								@(posedge CLOCK_50); // reset the system
 		KEY[0] = 0;								@(posedge CLOCK_50);
 		SW[9] = 0;								@(posedge CLOCK_50); // start is 0, loading A
-		SW[7:0] = 8'b01010101;				@(posedge CLOCK_50); // set A = 01010101		
-		SW[9] = 1;				repeat(10)	@(posedge CLOCK_50); // start = 1, on for 10 clock cycles (enough for the
-																				// system to count the number of 1s
+		SW[7:0] = 8'b01010101;							@(posedge CLOCK_50); // set A = 01010101		
+		SW[9] = 1;						repeat(10)	@(posedge CLOCK_50); // start = 1, on for 10 clock cycles (enough for the
+													     // system to count the number of 1s)
 		$stop;
 	
 	end
